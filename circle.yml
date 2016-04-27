@@ -4,14 +4,14 @@ machine:
 
 dependencies:
   pre:
-    - echo y | android update sdk --no-ui --all --filter tool,android-23
+    - echo y | android update sdk --no-ui --all --filter tool
     - echo y | android update sdk --no-ui --all --filter extra-android-support,extra-android-m2repository
     - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
 
 test:
   pre:
     # start emulator for instrumentation tests
-    - emulator -avd circleci-android23 -no-audio -no-window:
+    - emulator -avd circleci-android22 -no-audio -no-window:
         background: true
         parallel: true
 
