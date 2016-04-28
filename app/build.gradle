@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco-android'
+apply plugin: "net.saliman.cobertura"
+apply plugin: "com.github.kt3k.coveralls"
 
 android {
     compileSdkVersion 23
@@ -21,6 +23,8 @@ android {
         }
     }
 }
+
+cobertura.coverageFormats = ['html', 'xml']
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

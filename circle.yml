@@ -22,6 +22,7 @@ test:
 
   override:
     - ./gradlew jacocoTestReport connectedAndroidTest
+    - ./gradlew cobertura coveralls
 
   post:
       - cp -r app/build/reports/coverage/debug/* $CIRCLE_ARTIFACTS
