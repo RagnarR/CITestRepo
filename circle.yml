@@ -1,20 +1,21 @@
 machine:
   java:
     version: oraclejdk8
-  ruby:
-    version: 2.3.0
 
 dependencies:
   pre:
     - echo y | android update sdk --no-ui --all --filter tool
     - echo y | android update sdk --no-ui --all --filter extra-android-support,extra-android-m2repository
     - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
-    - gem uninstall bundler # use a custom version of bundler
+    - gem -v
+    - rvm @global do gem uninstall bundler -ax
+    - rvm install rubygems 2.4.8 --force
     - gem install bundler --pre
+    - bundle -v
 
   override:
-      - bundle install: # note ':' here
-          timeout: 180 # fail if command has no output for 3 minutes
+    - bundle -v
+    - bundle exec bundle -v
 
 test:
   pre:
