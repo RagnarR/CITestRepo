@@ -1,33 +1,8 @@
-machine:
-  java:
-    version: oraclejdk8
-
 dependencies:
   pre:
-    - echo y | android update sdk --no-ui --all --filter tool
-    - echo y | android update sdk --no-ui --all --filter extra-android-support,extra-android-m2repository
-    - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
-    - echo "export rvm_ignore_gemsets_flag=1" >> ~/.rvmrc
-    - gem install bundler
+    - gem install bundler -v '1.11.2'
+    - sed -i -e "s/Gem.activate_bin_path('bundler', 'bundle', version)/'\/home\/ubuntu\/.rvm\/gems\/ruby-2.3.0\/gems\/bundler-1.11.2\/exe\/bundle'/g" /home/ubuntu/.rvm/gems/ruby-2.3.0/bin/bundle
 
-test:
-  pre:
-    # start emulator for instrumentation tests
-    - emulator -avd circleci-android22 -no-audio -no-window:
-        background: true
-        parallel: true
-
-    - circle-android wait-for-boot
-    - sleep 60
-    - adb shell input keyevent 82
-    - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-
-  override:
-    - ./gradlew jacocoTestReport connectedAndroidTest coveralls
-
-  post:
-      - cp -r app/build/reports/coverage/debug/* $CIRCLE_ARTIFACTS
-      - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS
 
 deployment:
   staging:
