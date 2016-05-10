@@ -6,6 +6,7 @@ machine:
 
 dependencies:
   pre:
+    - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
     - gem install bundler -v '1.11.2'
     - sed -i -e "s/Gem.activate_bin_path('bundler', 'bundle', version)/'\/home\/ubuntu\/.rvm\/gems\/ruby-2.3.0\/gems\/bundler-1.11.2\/exe\/bundle'/g" /home/ubuntu/.rvm/gems/ruby-2.3.0/bin/bundle
 
