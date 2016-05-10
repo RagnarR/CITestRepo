@@ -9,7 +9,12 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter tool
     - echo y | android update sdk --no-ui --all --filter extra-android-support,extra-android-m2repository
     - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
+    - gem uninstall bundler # use a custom version of bundler
     - gem install bundler --pre
+
+  override:
+      - bundle install: # note ':' here
+          timeout: 180 # fail if command has no output for 3 minutes
 
 test:
   pre:
@@ -32,6 +37,6 @@ test:
 
 deployment:
   staging:
-    branch: [master]
+    branch: master
     commands:
       - bundle exec fastlane beta
