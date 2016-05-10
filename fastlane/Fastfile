@@ -1,0 +1,50 @@
+fastlane_version "1.86.1"
+
+default_platform :android
+
+platform :android do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+
+    gradle(task: "build")
+
+    # Distribute via Crashlytics
+    crashlytics(
+        groups: "qa-team",
+        apk_path: "./app/build/outputs/apk/app-debug.apk",
+        notes_path: "./release-notes.txt",
+        debug: "true")
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "assembleRelease")
+    supply
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
