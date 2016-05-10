@@ -18,6 +18,31 @@ apply plugin: 'jacoco-android'
 apply plugin: "net.saliman.cobertura"
 apply plugin: "com.github.kt3k.coveralls"
 
+
+/**
+ * Get the version code from command line param
+ *
+ * @return int If the param -PversionCode is present then return int value or -1
+ */
+def getVersionCode = { ->
+
+    def code = project.hasProperty('versionCode') ? versionCode.toInteger() : -1
+    println "VersionCode is set to $code"
+    return code
+}
+
+/**
+ * Get the version code from command line param
+ *
+ * @return String If the param -PversionName is present then return int value or -1
+ */
+def getVersionName = { ->
+
+    def name = project.hasProperty('versionCode') ? versionName.toString() : ""
+    println "VersionName is set to $name"
+    return name
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -40,30 +65,6 @@ android {
 }
 
 cobertura.coverageFormats = ['html', 'xml']
-
-/**
- * Get the version code from command line param
- *
- * @return int If the param -PversionCode is present then return int value or -1
- */
-def getVersionCode = { ->
-
-    def code = project.hasProperty('versionCode') ? versionCode.toInteger() : -1
-    println "VersionCode is set to $code"
-    return code
-}
-
-/**
- * Get the version code from command line param
- *
- * @return int If the param -PversionCode is present then return int value or -1
- */
-def getVersionName = { ->
-
-    def name = project.hasProperty('versionCode') ? versionName.toString() : ""
-    println "VersionName is set to $name"
-    return name
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
