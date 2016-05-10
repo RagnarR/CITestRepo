@@ -11,8 +11,7 @@ test:
       - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS
 
 deployment:
-  deployment:
-    staging:
-      branch: [master]
-      commands:
-       - bundle exec fastlane beta
+  staging:
+    branch: [master]
+    commands:
+      - bundle exec fastlane beta
