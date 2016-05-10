@@ -15,18 +15,18 @@ test:
   pre:
     # start emulator for instrumentation tests
     - emulator -avd circleci-android22 -no-audio -no-window:
-      background: true
-      parallel: true
+        background: true
+        parallel: true
 
     - circle-android wait-for-boot
     - sleep 60
     - adb shell input keyevent 82
     - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
 
-    override:
-      - ./gradlew jacocoTestReport connectedAndroidTest coveralls
+  override:
+    - ./gradlew jacocoTestReport connectedAndroidTest coveralls
 
-    post:
+  post:
       - cp -r app/build/reports/coverage/debug/* $CIRCLE_ARTIFACTS
       - cp -r app/build/reports/* $CIRCLE_TEST_REPORTS
 
