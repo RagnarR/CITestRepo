@@ -15,7 +15,14 @@ platform :android do
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
 
-    gradle(task: "build")
+    gradle(
+        task: "build",
+        properties: {
+            'versionCode' => 3,
+            'versionName' => '1.0.2',
+            # ...
+          }
+    )
 
     # Distribute via Crashlytics
     crashlytics(
