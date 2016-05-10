@@ -7,15 +7,8 @@ dependencies:
     - echo y | android update sdk --no-ui --all --filter tool
     - echo y | android update sdk --no-ui --all --filter extra-android-support,extra-android-m2repository
     - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
-    - gem -v
-    - rvm @global do gem uninstall bundler -ax
-    - rvm install rubygems 2.4.8 --force
-    - gem install bundler --pre
-    - bundle -v
-
-  override:
-    - bundle -v
-    - bundle exec bundle -v
+    - echo "export rvm_ignore_gemsets_flag=1" >> ~/.rvmrc
+    - gem install bundler
 
 test:
   pre:
