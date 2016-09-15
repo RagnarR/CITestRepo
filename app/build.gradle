@@ -50,8 +50,8 @@ android {
         applicationId "com.example.alvarlega.testcc"
         minSdkVersion 22
         targetSdkVersion 23
-        versionCode getVersionCode()
-        versionName getVersionName()
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
